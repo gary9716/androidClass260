@@ -1,5 +1,7 @@
 package com.example.simpleui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,15 +17,25 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputText;
     private CheckBox hide;
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sp = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        editor = sp.edit();
+
         inputText = (EditText) findViewById(R.id.editText);
         inputText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                editor.putString("input", inputText.getText().toString());
+                editor.commit();
+
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     submit(v);
                     return true;
@@ -31,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        inputText.setText(sp.getString("input", ""));
 
         hide = (CheckBox) findViewById(R.id.checkBox);
     }
