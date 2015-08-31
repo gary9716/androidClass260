@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadStoreInfo() {
-        String[] data = {"台大店", "師大店", "西門店"};
+        String[] data = getResources().getStringArray(R.array.store_info);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, data);
         storeInfo.setAdapter(adapter);
