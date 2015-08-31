@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         hide.setChecked(sp.getBoolean("hide", false));
+
+        loadHistory();
+    }
+
+    private void loadHistory() {
+        String result = Utils.readFile(this, "history.txt");
+        TextView history = (TextView) findViewById(R.id.history);
+        history.setText(result);
     }
 
     public void submit(View view) {
@@ -68,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 
         Utils.writeFile(this, "history.txt", text + "\n");
+        loadHistory();
     }
 
     @Override
