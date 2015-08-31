@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputText;
     private CheckBox hide;
     private ListView history;
+    private Spinner storeInfo;
 
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -63,8 +65,17 @@ public class MainActivity extends AppCompatActivity {
         hide.setChecked(sp.getBoolean("hide", false));
 
         history = (ListView) findViewById(R.id.history);
+        storeInfo = (Spinner) findViewById(R.id.spinner);
 
         loadHistory();
+        loadStoreInfo();
+    }
+
+    private void loadStoreInfo() {
+        String[] data = {"台大店", "師大店", "西門店"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, data);
+        storeInfo.setAdapter(adapter);
     }
 
     private void loadHistory() {
