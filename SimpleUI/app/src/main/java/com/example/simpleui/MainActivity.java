@@ -8,9 +8,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText inputText;
     private CheckBox hide;
+    private ListView history;
 
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -59,13 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
         hide.setChecked(sp.getBoolean("hide", false));
 
+        history = (ListView) findViewById(R.id.history);
+
         loadHistory();
     }
 
     private void loadHistory() {
         String result = Utils.readFile(this, "history.txt");
-        TextView history = (TextView) findViewById(R.id.history);
-        history.setText(result);
+        String[] data = result.split("\n");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, data);
+
+        history.setAdapter(adapter);
     }
 
     public void submit(View view) {

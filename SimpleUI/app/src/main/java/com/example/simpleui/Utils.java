@@ -31,6 +31,7 @@ public class Utils {
             FileInputStream fis = context.openFileInput(fileName);
             byte[] buffer = new byte[1024];
             fis.read(buffer);
+            fis.close();
 
             return new String(buffer);
 
