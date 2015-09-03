@@ -102,8 +102,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToDrinkMenu(View view) {
+        String storeInfoString = (String) storeInfo.getSelectedItem();
+
         Intent intent = new Intent();
         intent.setClass(this, DrinkMenuActivity.class);
+        intent.putExtra("store_info", storeInfoString);
         startActivity(intent);
     }
 
