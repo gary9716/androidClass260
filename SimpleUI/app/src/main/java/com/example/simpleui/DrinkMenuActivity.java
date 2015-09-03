@@ -8,6 +8,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ {
+    "note": "hello world",
+    "store_info": "南機場",
+    "menu" : [
+        {
+            "name": "black tea",
+            "L": 2,
+            "M": 0
+        },
+        {
+            "name": "tea",
+            "L": 5,
+            "M": 1
+        }
+    ]
+ }
+ */
+
 public class DrinkMenuActivity extends AppCompatActivity {
 
     private TextView storeInfo;
