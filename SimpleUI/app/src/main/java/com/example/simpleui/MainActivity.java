@@ -1,6 +1,7 @@
 package com.example.simpleui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -98,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
 
         Utils.writeFile(this, "history.txt", text + "\n");
         loadHistory();
+    }
+
+    public void goToDrinkMenu(View view) {
+        Intent intent = new Intent();
+        intent.setClass(this, DrinkMenuActivity.class);
+        startActivity(intent);
     }
 
     @Override
