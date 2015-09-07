@@ -49,6 +49,10 @@ public class DrinkMenuActivity extends AppCompatActivity {
 
     }
 
+    public void done(View view) {
+        finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
