@@ -1,5 +1,6 @@
 package com.example.simpleui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -83,9 +84,10 @@ public class DrinkMenuActivity extends AppCompatActivity {
     }
 
     public void done(View view) {
+        Intent data = new Intent();
+        data.putExtra("result", getValue().toString());
 
-        Log.d("deubg", getValue().toString());
-
+        setResult(RESULT_OK, data);
         finish();
     }
 
