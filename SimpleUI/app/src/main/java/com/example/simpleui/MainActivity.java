@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void saveOrder() {
+    private void saveOrder(SaveCallback saveCallback) {
         ParseObject object = new ParseObject("Order");
         object.put("note", inputText.getText().toString());
         object.put("store_info", (String) storeInfo.getSelectedItem());
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        object.saveInBackground();
+        object.saveInBackground(saveCallback);
     }
 
     public void submit(View view) {
@@ -158,8 +158,12 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 
-        saveOrder();
-        loadHistory();
+        saveOrder(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                loadHistory();
+            }
+        });
 
         inputText.setText("");
         drinkMenuResult = null;
