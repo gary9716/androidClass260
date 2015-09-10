@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "N5ytfpTopfdCCmIqCgZZk5PDjkUiGudm1UaygmOv", "TH9KM8xYSN4nFD7GIxGDrppNsXVN1exKrm0v6KuA");
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
-
         sp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         editor = sp.edit();
 
@@ -135,18 +131,18 @@ public class MainActivity extends AppCompatActivity {
         history.setAdapter(adapter);
     }
 
-    private JSONObject pack() {
-        try {
-            JSONObject object = new JSONObject();
-            object.put("note", inputText.getText().toString());
-            object.put("store_info", (String) storeInfo.getSelectedItem());
-            if (drinkMenuResult != null)
+    private void saveOrder() {
+        ParseObject object = new ParseObject("Order");
+        object.put("note", inputText.getText().toString());
+        object.put("store_info", (String) storeInfo.getSelectedItem());
+        if (drinkMenuResult != null) {
+            try {
                 object.put("menu", new JSONArray(drinkMenuResult));
-            return object;
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        object.saveInBackground();
     }
 
     public void submit(View view) {
@@ -156,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 
-        Utils.writeFile(this, "history.txt", pack().toString() + "\n");
+        saveOrder();
         loadHistory();
 
         inputText.setText("");
