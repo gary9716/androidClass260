@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -92,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
         hide.setChecked(sp.getBoolean("hide", false));
 
         history = (ListView) findViewById(R.id.history);
+        history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                goToOrderDetail();
+            }
+        });
+
         storeInfo = (Spinner) findViewById(R.id.spinner);
 
         loadHistory();
@@ -180,6 +188,12 @@ public class MainActivity extends AppCompatActivity {
 
         inputText.setText("");
         drinkMenuResult = null;
+    }
+
+    private void goToOrderDetail() {
+        Intent intent = new Intent();
+        intent.setClass(this, OrderDetailActivity.class);
+        startActivity(intent);
     }
 
     public void goToDrinkMenu(View view) {
