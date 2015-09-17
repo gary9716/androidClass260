@@ -94,6 +94,28 @@ public class Utils {
         return Uri.fromFile(file);
     }
 
+    public static byte[] fetchToByte(String urlString){
+        try {
+            URL url = new URL(urlString);
+            URLConnection urlConnection = url.openConnection();
+            InputStream inputStream = urlConnection.getInputStream();
+
+            ByteArrayOutputStream byteArrayOutputStream =
+                    new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while((len = inputStream.read(buffer)) != -1){
+                byteArrayOutputStream.write(buffer, 0, len);
+            }
+            return byteArrayOutputStream.toByteArray();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static class NetworkTask extends AsyncTask<String, Void, byte[]> {
         private Callback callback;
@@ -118,8 +140,7 @@ public class Utils {
 
     }
 
-    private static byte[] fetchToByte(String url) {
-    }
+
 
 
     /* fetchUrlToByte function
