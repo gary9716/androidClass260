@@ -3,6 +3,7 @@ package com.example.simpleui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 public class OrderDetailActivity extends AppCompatActivity {
 
     private TextView textView;
+    /* geo point double array */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         String menu = intent.getStringExtra("menu");
 
         textView.setText(note + "," + storeInfo + "," + menu);
-
+        /*call load geo point function*/
     }
+
+    /* declare load geo point function */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
