@@ -27,9 +27,24 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         textView.setText(note + "," + storeInfo + "," + menu);
         /*call load geo point function*/
+        loadGeoPoint(storeInfo);
     }
 
     /* declare load geo point function */
+    private void loadGeoPoint(String storeInfo){
+        String geoQueryUrl = Utils.getGeoQueryUrl(storeInfo);
+        Utils.NetworkTask task = new Utils.NetworkTask();
+        task.setCallback(new Utils.NetworkTask.Callback(){
+
+            @Override
+            public void done(byte[] fetchResult) {
+                String jsonString = new String(fetchResult);
+                textView.setText(jsonString);
+            }
+        });
+        task.execute(geoQueryUrl);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

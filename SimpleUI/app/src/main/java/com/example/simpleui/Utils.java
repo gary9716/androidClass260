@@ -30,7 +30,7 @@ import javax.security.auth.callback.Callback;
  */
 public class Utils {
 
-    final static String GEO_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+//    final static String GEO_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
 
     public static void writeFile(Context context, String fileName, String text) {
         try {
@@ -115,7 +115,7 @@ public class Utils {
         }
         return null;
     }
-    private final static String GEO_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
+    private final static String GEO_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
     public static String getGeoQueryUrl(String address){
         try {
             return GEO_URL + URLEncoder.encode(address, "utf-8");
