@@ -115,6 +115,15 @@ public class Utils {
         }
         return null;
     }
+    private final static String GEO_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
+    public static String getGeoQueryUrl(String address){
+        try {
+            return GEO_URL + URLEncoder.encode(address, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public static class NetworkTask extends AsyncTask<String, Void, byte[]> {
