@@ -125,6 +125,24 @@ public class Utils {
         return null;
     }
 
+    public static double[] getGeoPoint(String jsonString){
+        try {
+            JSONObject object = new JSONObject(jsonString);
+            String status = object.getString("status");
+            if(status.equals("OK")){
+                JSONObject location = object.getJSONArray("results")
+                        .getJSONObject(0).getJSONObject("geometry")
+                        .getJSONObject("location");
+                double lat = location.getDouble("lat");
+                double lng = location.getDouble("lng");
+                return new double[]{lat, lng};
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static class NetworkTask extends AsyncTask<String, Void, byte[]> {
         private Callback callback;

@@ -12,7 +12,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private TextView textView;
     /* geo point double array */
-
+    private double[] geoPoint;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +35,12 @@ public class OrderDetailActivity extends AppCompatActivity {
         String geoQueryUrl = Utils.getGeoQueryUrl(storeInfo);
         Utils.NetworkTask task = new Utils.NetworkTask();
         task.setCallback(new Utils.NetworkTask.Callback(){
-
             @Override
             public void done(byte[] fetchResult) {
                 String jsonString = new String(fetchResult);
-                textView.setText(jsonString);
+                geoPoint = Utils.getGeoPoint(jsonString);
+                textView.setText("lat: " + geoPoint[0]
+                        + ", lng: " + geoPoint[1]);
             }
         });
         task.execute(geoQueryUrl);
