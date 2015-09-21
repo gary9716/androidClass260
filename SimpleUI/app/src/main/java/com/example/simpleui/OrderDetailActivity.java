@@ -1,5 +1,6 @@
 package com.example.simpleui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     private WebView webView;
     private ImageView imageView;
 
+    private ProgressDialog progressDialog;
+
     /* geo point double array */
     private double[] geoPoint;
 
@@ -30,6 +33,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         webView = (WebView) findViewById(R.id.webView);
         imageView = (ImageView) findViewById(R.id.imageView);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
         Intent intent = getIntent();
         String note = intent.getStringExtra("note");
@@ -56,6 +64,8 @@ public class OrderDetailActivity extends AppCompatActivity {
 
                 Bitmap bm = BitmapFactory.decodeByteArray(fetchResult, 0, fetchResult.length);
                 imageView.setImageBitmap(bm);
+
+                progressDialog.dismiss();
             }
         });
         task.execute(url);
