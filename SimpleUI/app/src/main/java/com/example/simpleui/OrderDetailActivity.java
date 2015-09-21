@@ -32,14 +32,16 @@ public class OrderDetailActivity extends AppCompatActivity {
         textView.setText(note + "," + storeInfo + "," + menu);
         /*call load geo point function*/
         loadGeoPoint(storeInfo);
-        loadWebView();
+
     }
 
     private final static String STATIC_MAP_URL = "https://maps.googleapis.com/maps/api/staticmap?";
 
-    private void loadWebView() {
+    private void loadWebView(double lat, double lng) {
 
-        String url = "https://maps.googleapis.com/maps/api/staticmap?center=25.020384,%20121.544608&zoom=15&size=600x300";
+        String url = STATIC_MAP_URL + "center=" + lat + "," + lng +
+                "&zoom=15&size=600x300&markers=color:blue|" + lat + "," + lng;
+
         webView.loadUrl(url);
     }
 
@@ -54,6 +56,9 @@ public class OrderDetailActivity extends AppCompatActivity {
                 geoPoint = Utils.getGeoPoint(jsonString);
                 textView.setText("lat: " + geoPoint[0]
                         + ", lng: " + geoPoint[1]);
+
+                loadWebView(geoPoint[0], geoPoint[1]);
+
             }
         });
         task.execute(geoQueryUrl);
