@@ -12,18 +12,27 @@
 
     <WebView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/webView"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/imageView"
         android:src="@mipmap/ic_launcher"
         android:layout_below="@+id/webView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp" />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp" />
 
 </RelativeLayout>

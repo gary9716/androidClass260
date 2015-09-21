@@ -5,4 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_drink_menu">DrinkMenuActivity</string>
     <string name="title_activity_order_detail">OrderDetailActivity</string>
+
+    <string name="google_maps_key">AIzaSyDYIZ3C4eMoAXJmvPEAJZrezGsr4CoF-2g</string>
 </resources>
