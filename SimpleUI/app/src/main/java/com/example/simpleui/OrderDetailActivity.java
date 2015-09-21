@@ -1,18 +1,24 @@
 package com.example.simpleui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class OrderDetailActivity extends AppCompatActivity {
 
     private TextView textView;
     private WebView webView;
+    private ImageView imageView;
+
     /* geo point double array */
     private double[] geoPoint;
 
@@ -23,6 +29,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.textView);
         webView = (WebView) findViewById(R.id.webView);
+        imageView = (ImageView) findViewById(R.id.imageView);
 
         Intent intent = getIntent();
         String note = intent.getStringExtra("note");
@@ -35,14 +42,23 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     }
 
-    private final static String STATIC_MAP_URL = "https://maps.googleapis.com/maps/api/staticmap?";
-
     private void loadWebView(double lat, double lng) {
+        webView.loadUrl(Utils.getStaticMapURL(lat, lng));
+    }
 
-        String url = STATIC_MAP_URL + "center=" + lat + "," + lng +
-                "&zoom=15&size=600x300&markers=color:blue|" + lat + "," + lng;
+    private void loadImageView(double lat, double lng) {
 
-        webView.loadUrl(url);
+        String url = Utils.getStaticMapURL(lat, lng);
+        Utils.NetworkTask task = new Utils.NetworkTask();
+        task.setCallback(new Utils.NetworkTask.Callback() {
+            @Override
+            public void done(byte[] fetchResult) {
+
+                Bitmap bm = BitmapFactory.decodeByteArray(fetchResult, 0, fetchResult.length);
+                imageView.setImageBitmap(bm);
+            }
+        });
+        task.execute(url);
     }
 
     /* declare load geo point function */
@@ -58,7 +74,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                         + ", lng: " + geoPoint[1]);
 
                 loadWebView(geoPoint[0], geoPoint[1]);
-
+                loadImageView(geoPoint[0], geoPoint[1]);
             }
         });
         task.execute(geoQueryUrl);

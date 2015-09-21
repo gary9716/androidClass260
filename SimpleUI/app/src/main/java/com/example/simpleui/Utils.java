@@ -167,13 +167,16 @@ public class Utils {
 
     }
 
-
-
-
     /* fetchUrlToByte function
     getGeoQueryUrl
     getGeoPoint
     NetworkTask class
      */
 
+    private final static String STATIC_MAP_URL = "https://maps.googleapis.com/maps/api/staticmap?";
+
+    public static String getStaticMapURL(double lat, double lng) {
+        return STATIC_MAP_URL + "center=" + lat + "," + lng +
+                "&zoom=15&size=600x300&markers=color:blue|" + lat + "," + lng;
+    }
 }
