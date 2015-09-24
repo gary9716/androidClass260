@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("userId");
+        Toast.makeText(getApplicationContext(), userId, Toast.LENGTH_LONG).show();
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "N5ytfpTopfdCCmIqCgZZk5PDjkUiGudm1UaygmOv", "TH9KM8xYSN4nFD7GIxGDrppNsXVN1exKrm0v6KuA");
         // Enable Local Datastore.
