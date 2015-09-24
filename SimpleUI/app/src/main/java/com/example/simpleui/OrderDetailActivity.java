@@ -142,11 +142,17 @@ public class OrderDetailActivity extends AppCompatActivity
     }
 
     private void setUpGoogleMap() {
+        String[] storeInfo = getIntent().getStringExtra("store_info")
+                .split(" ");
+        String place = storeInfo[0];
+        String address = storeInfo[1];
         LatLng store = new LatLng(geoPoint[0], geoPoint[1]);
         googleMap.moveCamera(CameraUpdateFactory
                 .newLatLngZoom(store, 5));
         googleMap.setMyLocationEnabled(true);
         googleMap.addMarker(new MarkerOptions()
-            .position(store));
+            .position(store)
+            .title(place)
+            .snippet(address));
     }
 }
