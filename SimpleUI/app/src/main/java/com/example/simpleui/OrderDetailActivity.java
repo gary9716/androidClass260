@@ -1,5 +1,6 @@
 package com.example.simpleui;
 
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,14 +15,26 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class OrderDetailActivity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+
+public class OrderDetailActivity extends AppCompatActivity
+        implements OnMapReadyCallback {
 
     private TextView textView;
     private WebView webView;
     private ImageView imageView;
-
     private ProgressDialog progressDialog;
 
+    /* google map & mapFragment */
+    private GoogleMap googleMap;
+    private SupportMapFragment mapFragment;
     /* geo point double array */
     private double[] geoPoint;
 
@@ -72,7 +85,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     /* declare load geo point function */
-    private void loadGeoPoint(String storeInfo) {
+    private void loadGeoPoint(final String storeInfo) {
         String geoQueryUrl = Utils.getGeoQueryUrl(storeInfo);
         Utils.NetworkTask task = new Utils.NetworkTask();
         task.setCallback(new Utils.NetworkTask.Callback() {
@@ -83,13 +96,19 @@ public class OrderDetailActivity extends AppCompatActivity {
                 textView.setText("lat: " + geoPoint[0]
                         + ", lng: " + geoPoint[1]);
 
-                loadWebView(geoPoint[0], geoPoint[1]);
-                loadImageView(geoPoint[0], geoPoint[1]);
+//                loadWebView(geoPoint[0], geoPoint[1]);
+//                loadImageView(geoPoint[0], geoPoint[1]);
+                loadGoogleMap();
             }
         });
         task.execute(geoQueryUrl);
     }
 
+    private void loadGoogleMap() {
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().
+                findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,5 +130,23 @@ public class OrderDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        if(geoPoint != null){
+            setUpGoogleMap();
+        }
+    }
+
+    private void setUpGoogleMap() {
+        LatLng store = new LatLng(geoPoint[0], geoPoint[1]);
+        googleMap.moveCamera(CameraUpdateFactory
+                .newLatLngZoom(store, 5));
+        googleMap.setMyLocationEnabled(true);
+        googleMap.addMarker(new MarkerOptions()
+            .position(store));
     }
 }

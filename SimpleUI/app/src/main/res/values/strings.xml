@@ -6,5 +6,6 @@
     <string name="title_activity_drink_menu">DrinkMenuActivity</string>
     <string name="title_activity_order_detail">OrderDetailActivity</string>
 
-    <string name="google_maps_key">AIzaSyDYIZ3C4eMoAXJmvPEAJZrezGsr4CoF-2g</string>
+    <string name="google_maps_key">AIzaSyD48XlOFd08ZyzxQR4z1giBXgM2zKOkOj0</string>
+
 </resources>
