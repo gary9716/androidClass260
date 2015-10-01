@@ -69,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String userId = intent.getStringExtra("userId");
         Toast.makeText(getApplicationContext(), userId, Toast.LENGTH_LONG).show();
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "N5ytfpTopfdCCmIqCgZZk5PDjkUiGudm1UaygmOv", "TH9KM8xYSN4nFD7GIxGDrppNsXVN1exKrm0v6KuA");
-        // Enable Local Datastore.
 
         sp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         editor = sp.edit();
