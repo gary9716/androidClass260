@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner storeInfo;
     private ImageView imageView;
 
+
+    private static final String isHidingKey = "hide";
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
@@ -92,16 +94,22 @@ public class MainActivity extends AppCompatActivity {
 
         inputText.setText(sp.getString("input", ""));
 
+        imageView = (ImageView) findViewById(R.id.imageView);
+
         hide = (CheckBox) findViewById(R.id.checkBox);
         hide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                editor.putBoolean("hide", isChecked);
+                //save result to preference
+                editor.putBoolean(isHidingKey, isChecked);
                 editor.commit();
+
+                //notify the UI element and load the value from preference.
+                setImageVisibility(imageView, sp);
             }
         });
 
-        hide.setChecked(sp.getBoolean("hide", false));
+        hide.setChecked(sp.getBoolean(isHidingKey, false));
 
         history = (ListView) findViewById(R.id.history);
         history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         storeInfo = (Spinner) findViewById(R.id.spinner);
-
-        imageView = (ImageView) findViewById(R.id.imageView);
 
         loadHistory();
         loadStoreInfo();
@@ -274,4 +280,15 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void setImageVisibility(ImageView imageView, SharedPreferences sp) {
+        boolean isHiding = sp.getBoolean(isHidingKey, false);
+        if(isHiding) {
+            imageView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            imageView.setVisibility(View.VISIBLE);
+        }
+    }
+
 }
