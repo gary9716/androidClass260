@@ -47,6 +47,9 @@ public class DrinkMenuActivity extends AppCompatActivity {
 
         String storeInfoStr = getIntent().getStringExtra("store_info");
         storeInfo.setText(storeInfoStr);
+
+
+
     }
 
     public void add(View view) {
@@ -88,6 +91,11 @@ public class DrinkMenuActivity extends AppCompatActivity {
         data.putExtra("result", getValue().toString());
 
         setResult(RESULT_OK, data);
+        finish();
+    }
+
+    public void cancel(View view) {
+        setResult(RESULT_CANCELED);
         finish();
     }
 

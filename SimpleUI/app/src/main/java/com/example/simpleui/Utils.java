@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -178,5 +179,10 @@ public class Utils {
     public static String getStaticMapURL(double lat, double lng) {
         return STATIC_MAP_URL + "center=" + lat + "," + lng +
                 "&zoom=15&size=600x300&markers=color:blue|" + lat + "," + lng;
+    }
+
+    public static String getDrinkSum(JSONArray menu) {
+        //TODO homework2
+        return "0";
     }
 }
