@@ -13,8 +13,9 @@ public class SimpleUIApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "N5ytfpTopfdCCmIqCgZZk5PDjkUiGudm1UaygmOv",
-                "TH9KM8xYSN4nFD7GIxGDrppNsXVN1exKrm0v6KuA");
+//        Parse.initialize(this, "N5ytfpTopfdCCmIqCgZZk5PDjkUiGudm1UaygmOv",
+//                "TH9KM8xYSN4nFD7GIxGDrppNsXVN1exKrm0v6KuA");
+        Parse.initialize(this, "N5ytfpTopfdCCmIqCgZZk5PDjkUiGudm1UaygmOv", "TH9KM8xYSN4nFD7GIxGDrppNsXVN1exKrm0v6KuA");
         // Enable Local Datastore.
 
     }
