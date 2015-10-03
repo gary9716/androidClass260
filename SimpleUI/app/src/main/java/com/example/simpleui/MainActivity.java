@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         Map<String, String> item = new HashMap<>();
                         item.put("note", note);
                         item.put("store_info", storeInfo);
-                        item.put("sum", "5");
+                        item.put("sum", Utils.getDrinkSum(menu));
 
                         data.add(item);
                     }

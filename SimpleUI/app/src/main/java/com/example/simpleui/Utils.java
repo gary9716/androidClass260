@@ -33,6 +33,8 @@ public class Utils {
 
 //    final static String GEO_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
 
+    public final static String debug_Tag = "MyUtils";
+
     public static void writeFile(Context context, String fileName, String text) {
         try {
             FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_APPEND);
@@ -182,7 +184,23 @@ public class Utils {
     }
 
     public static String getDrinkSum(JSONArray menu) {
-        //TODO homework2
-        return "0";
+        if(menu == null) {
+            return "0";
+        }
+        else {
+            int numObjs = menu.length();
+            int totalNumDrinks = 0;
+            for (int i = 0; i < numObjs; i++) {
+                try {
+                    JSONObject obj = menu.getJSONObject(i);
+                    totalNumDrinks += (obj.getInt("l") + obj.getInt("m"));
+                } catch (Exception e) {
+                    Log.d(debug_Tag, e.getLocalizedMessage());
+                    break;
+                }
+            }
+
+            return String.valueOf(totalNumDrinks);
+        }
     }
 }
